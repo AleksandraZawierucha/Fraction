@@ -47,3 +47,17 @@ TEST(FractionTest, AddFractionWithDiferentDenominator2)
     EXPECT_EQ(f2.getNominator(), 17);
     EXPECT_EQ(f2.getDenominator(), 8);
 }
+TEST(FractionTest, AddFractionWithDiferentDenominator3)
+{
+    Fraction f1(7,8);
+    Fraction f2 = f1+Fraction(5,4);
+    EXPECT_EQ(f2.getNominator(), 17);
+    EXPECT_EQ(f2.getDenominator(), 8);
+}
+TEST(FractionTest, AddFractionWithDiferentDenominator4)
+{
+    Fraction f1(3,2);
+    Fraction f2 = f1+Fraction(1,6);
+    EXPECT_EQ(f2.getNominator(), 10);
+    EXPECT_EQ(f2.getDenominator(), 6);
+}
