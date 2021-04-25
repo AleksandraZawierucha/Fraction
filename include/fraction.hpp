@@ -8,4 +8,6 @@ class Fraction
     int denominator;
 public:
     Fraction(int nominator_, int denominator_);
+    int getNominator();
+    int getDenominator();
 };
