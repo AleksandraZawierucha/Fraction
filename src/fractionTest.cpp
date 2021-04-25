@@ -1,13 +1,16 @@
 #include "gtest/gtest.h"
 #include "fraction.hpp"
 
-struct FractionTest : public ::testing::Test
-{
+// struct FractionTestFixture : public ::testing::Test
+// {
     
-};
+// };
 
-TEST_F(FractionTest, OneMatch)
+TEST(FractionTest, CreateFraction)
 {
-
-    EXPECT_TRUE(true);
+    Fraction(1,2);
+}
+TEST(FractionTest, CreateFractionWithZeroDenominator)
+{
+    EXPECT_THROW(Fraction(1,0), std::logic_error);
 }
