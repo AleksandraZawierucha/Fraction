@@ -14,10 +14,8 @@ Fraction::Fraction(int nominator_, int denominator_): nominator(nominator_), den
         nominator = nominator_/denominator_;
         denominator = 1;
     }
-    for(auto i = std::max(nominator, denominator); i > 1; i--)
-    {
-        findCommonDivisor(i);
-    }
+    reduce();
+    if(nominator_ < 0 || denominator_ < 0)
     setMinusSign();
 }
 int Fraction::getNominator()
@@ -43,16 +41,22 @@ Fraction Fraction::operator+ (Fraction other)
     else
         return Fraction(other.getNominator()*this->getDenominator() + this->getNominator()*other.getDenominator(), other.getDenominator()*this->getDenominator() );
 }
-int Fraction::findCommonDivisor(int divider)
+void Fraction::findCommonDivisor(int divider)
 {
     if(nominator%divider == 0 && denominator%divider == 0)
     {
         nominator /= divider;
         denominator /= divider;
-        return divider;
     }      
-    else
-        return -1;
+}
+void Fraction::reduce()
+{
+    unsigned nominatorCheck = nominator >= 0 ? nominator : -nominator;
+    unsigned denominatorCheck = denominator >= 0 ? denominator : -denominator;
+    for(auto i = std::max(nominatorCheck, denominatorCheck); i > 1; i--)
+    {
+        findCommonDivisor(i);
+    }
 }
 void Fraction::setMinusSign()
 {
@@ -61,4 +65,29 @@ void Fraction::setMinusSign()
         nominator *= -1;
         denominator *= -1;
     }
+}
+Fraction Fraction::operator- (Fraction other)
+{
+    if(other.getDenominator() == this->getDenominator())
+        return Fraction(this->getNominator()-other.getNominator(),other.getDenominator());
+    else if(other.getDenominator()%this->getDenominator() == 0 )
+    {
+        return Fraction(this->getNominator()*other.getDenominator()/this->getDenominator()-other.getNominator(), other.getDenominator() );
+    }
+    else if(this->getDenominator()%other.getDenominator() == 0 )
+    {
+        return Fraction(this->getNominator()-other.getNominator()*this->getDenominator()/other.getDenominator(), this->getDenominator() );
+    }
+    else
+        return Fraction(this->getNominator()*other.getDenominator()-other.getNominator()*this->getDenominator(), other.getDenominator()*this->getDenominator() );
+}
+
+Fraction Fraction::operator* (Fraction other)
+{
+    return Fraction(this->getNominator()*other.getNominator(), this->getDenominator()*other.getDenominator());
+}
+
+Fraction Fraction::operator/ (Fraction other)
+{
+    return Fraction(this->getNominator()*other.getDenominator(), this->getDenominator()*other.getNominator());
 }

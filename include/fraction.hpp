@@ -7,11 +7,15 @@ class Fraction
 {
     int nominator;
     int denominator;
-    int findCommonDivisor(int divider);
+    void findCommonDivisor(int divider);
+    void reduce();
     void setMinusSign();
 public:
     Fraction(int nominator_, int denominator_);
     int getNominator();
     int getDenominator();
     Fraction operator+ (Fraction other);
+    Fraction operator- (Fraction other);
+    Fraction operator* (Fraction other);
+    Fraction operator/ (Fraction other);
 };
