@@ -105,6 +105,14 @@ TEST(FractionTest, AddFractionWithMinusSign2)
     EXPECT_EQ(f.getNominator(), 1);
     EXPECT_EQ(f.getDenominator(), 1);
 }
+TEST(FractionTest, AddedFractionGivenOne)
+{
+    EXPECT_EQ(Fraction(1,2) + Fraction(1,2), Fraction(1,1) );
+}
+TEST(FractionTest, AddedFractionGivenZero)
+{
+    EXPECT_EQ(Fraction(1,2) + Fraction(-1,2), Fraction(0,1) );
+} 
 TEST(FractionTest, SubstractFractionsWithTheSameDenominators)
 {
     Fraction f = Fraction(-9,-12) - Fraction(1,4);
@@ -176,4 +184,28 @@ TEST(FractionTest, DevideReducedNegativeFractions)
     Fraction f = Fraction(6,-5) / Fraction(-3,2);
     EXPECT_EQ(f.getNominator(), 4);
     EXPECT_EQ(f.getDenominator(), 5);
+}
+TEST(FractionTest, FractionEqualOperatorWorks)
+{
+    EXPECT_EQ(Fraction(2,-4), Fraction(-1,2) );
+}
+TEST(FractionTest, FractionNotEqualOperatorWorks)
+{
+    EXPECT_NE(Fraction(2,4), Fraction(-1,2) );
+}
+TEST(FractionTest, OperatorPreIncrementationWorks)
+{
+    EXPECT_EQ(++Fraction(1,2), Fraction(3,2) );
+}
+TEST(FractionTest, OperatorPreDecrementationWorks)
+{
+    EXPECT_EQ(--Fraction(1,2), Fraction(-1,2) );
+}
+TEST(FractionTest, OperatorPostIncrementationWorks)
+{
+    EXPECT_EQ(Fraction(1,2)++, Fraction(3,2) );
+}
+TEST(FractionTest, OperatorPostDecrementationWorks)
+{
+    EXPECT_EQ(Fraction(1,2)--, Fraction(-1,2) );
 }

@@ -5,6 +5,7 @@
 
 class Fraction
 {
+private:
     int nominator;
     int denominator;
     void findCommonDivisor(int divider);
@@ -12,10 +13,21 @@ class Fraction
     void setMinusSign();
 public:
     Fraction(int nominator_, int denominator_);
-    int getNominator();
-    int getDenominator();
-    Fraction operator+ (Fraction other);
-    Fraction operator- (Fraction other);
-    Fraction operator* (Fraction other);
-    Fraction operator/ (Fraction other);
+    int getNominator() const;
+    int getDenominator() const;
+    friend Fraction operator- (const Fraction &first, const Fraction &second);
+    friend Fraction operator* (const Fraction &first, const Fraction &second);
+    friend Fraction operator/ (const Fraction &first, const Fraction &second);
+    friend Fraction operator+ (const Fraction& first, const Fraction& second);
+    Fraction operator++ ();
+    Fraction operator++ (int);
+    Fraction operator-- ();
+    Fraction operator-- (int);
 };
+
+bool operator==(const Fraction& first, const Fraction& second);
+bool operator!=(const Fraction& first, const Fraction& second);
+Fraction operator+ (const Fraction& first, const Fraction& second);
+Fraction operator- (const Fraction &first, const Fraction &second);
+Fraction operator* (const Fraction &first, const Fraction &second);
+Fraction operator/ (const Fraction &first, const Fraction &second);
