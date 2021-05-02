@@ -20,14 +20,6 @@ Fraction::Fraction(int nominator_, int denominator_): nominator(nominator_), den
     if(nominator_ < 0 || denominator_ < 0)
     setMinusSign();
 }
-int Fraction::getNominator() const
-{
-    return nominator;
-}
-int Fraction::getDenominator() const
-{
-    return denominator;
-}
 void Fraction::findCommonDivisor(int divider)
 {
     if(nominator%divider == 0 && denominator%divider == 0)
@@ -53,55 +45,55 @@ void Fraction::setMinusSign()
         denominator *= -1;
     }
 }
-Fraction operator-(const Fraction &first, const Fraction &second)
+Fraction operator+ (const Fraction& first, const Fraction& second)
 {
-    if (second.getDenominator() == first.getDenominator())
-        return Fraction(first.getNominator() - second.getNominator(), second.getDenominator());
-    else if (second.getDenominator() % first.getDenominator() == 0)
+    if(first.denominator == second.denominator)
+        return Fraction(second.nominator+first.nominator,second.denominator);
+    else if(second.denominator%first.denominator == 0 )
     {
-        return Fraction(first.getNominator() * second.getDenominator() / first.getDenominator() - second.getNominator(), second.getDenominator());
+        return Fraction(second.nominator + first.nominator*second.denominator/first.denominator, second.denominator );
     }
-    else if (first.getDenominator() % second.getDenominator() == 0)
+    else if(first.denominator%second.denominator == 0 )
     {
-        return Fraction(first.getNominator() - second.getNominator() * first.getDenominator() / second.getDenominator(), first.getDenominator());
+        return Fraction(second.nominator*first.denominator/second.denominator + first.nominator, first.denominator );
     }
     else
-        return Fraction(first.getNominator() * second.getDenominator() - second.getNominator() * first.getDenominator(), second.getDenominator() * first.getDenominator());
+        return Fraction(second.nominator*first.denominator + first.nominator*second.denominator, second.denominator*first.denominator );
+}
+Fraction operator-(const Fraction &first, const Fraction &second)
+{
+    if (second.denominator == first.denominator)
+        return Fraction(first.nominator - second.nominator, second.denominator);
+    else if (second.denominator % first.denominator == 0)
+    {
+        return Fraction(first.nominator * second.denominator / first.denominator - second.nominator, second.denominator);
+    }
+    else if (first.denominator % second.denominator == 0)
+    {
+        return Fraction(first.nominator - second.nominator * first.denominator / second.denominator, first.denominator);
+    }
+    else
+        return Fraction(first.nominator * second.denominator - second.nominator * first.denominator, second.denominator * first.denominator);
 }
 Fraction operator* (const Fraction &first, const Fraction &second)
 {
-    return Fraction(first.getNominator()*second.getNominator(), first.getDenominator()*second.getDenominator());
+    return Fraction(first.nominator*second.nominator, first.denominator*second.denominator);
 }
 Fraction operator/ (const Fraction &first, const Fraction &second)
 {
-    return Fraction(first.getNominator()*second.getDenominator(), first.getDenominator()*second.getNominator());
+    return Fraction(first.nominator*second.denominator, first.denominator*second.nominator);
 }
 bool operator==(const Fraction& first, const Fraction& second)
 {
-    if(first.getNominator() == second.getNominator() && first.getDenominator() == second.getDenominator())
+    if(first.nominator == second.nominator && first.denominator == second.denominator)
         return true;
     return false;
 }
 bool operator!=(const Fraction& first, const Fraction& second)
 {
-    if(first.getNominator() == second.getNominator() && first.getDenominator() == second.getDenominator())
+    if(first.nominator == second.nominator && first.denominator == second.denominator)
         return false;
     return true;
-}
-Fraction operator+ (const Fraction& first, const Fraction& second)
-{
-    if(first.getDenominator() == second.getDenominator())
-        return Fraction(second.getNominator()+first.getNominator(),second.getDenominator());
-    else if(second.getDenominator()%first.getDenominator() == 0 )
-    {
-        return Fraction(second.getNominator() + first.getNominator()*second.getDenominator()/first.getDenominator(), second.getDenominator() );
-    }
-    else if(first.getDenominator()%second.getDenominator() == 0 )
-    {
-        return Fraction(second.getNominator()*first.getDenominator()/second.getDenominator() + first.getNominator(), first.getDenominator() );
-    }
-    else
-        return Fraction(second.getNominator()*first.getDenominator() + first.getNominator()*second.getDenominator(), second.getDenominator()*first.getDenominator() );
 }
 Fraction Fraction::operator++ ()
 {

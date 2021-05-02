@@ -13,8 +13,8 @@ private:
     void setMinusSign();
 public:
     Fraction(int nominator_, int denominator_);
-    int getNominator() const;
-    int getDenominator() const;
+    friend bool operator==(const Fraction& first, const Fraction& second);
+    friend bool operator!=(const Fraction& first, const Fraction& second);
     friend Fraction operator- (const Fraction &first, const Fraction &second);
     friend Fraction operator* (const Fraction &first, const Fraction &second);
     friend Fraction operator/ (const Fraction &first, const Fraction &second);
